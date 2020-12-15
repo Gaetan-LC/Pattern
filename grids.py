@@ -1,6 +1,6 @@
 from random import *
-width=3
-heigh=3
+width=5
+heigh=5
 def create_grid(width,heigh):
     grid=[]
     for i in range (heigh):
@@ -59,25 +59,49 @@ def create_grid(width,heigh):
 
     return grid
 
+def print_grid(grid):
+    for l in range (len(grid)):
+        for c in range(len(grid[0])):
+            print (grid[l][c][1],end='')
+        print()
+
 def numbers(grid):
     num1=[]
+    for c in range(len(grid[0])):
+        num1.append([])
     a=0
     for c in range(len(grid[0])):
         for l in range(len(grid)):
             if grid[l][c][1]==1:
-                a=+1
-                print("a=+1")
+                a+=1
             if grid[l][c][1]==0 and a!=0:
-                num1.append(a)
+                num1[c].append(a)
                 a=0
-                print("num1.append(",a,")")
-            print("step")
-        a=0
-        print("a=0\n")
-    return num1
+        if a!=0:
+            num1[c].append(a)
+            a=0
+
+    num2=[]
+    for l in range(len(grid)):
+        num2.append([])
+    a=0
+    for l in range(len(grid)):
+        for c in range(len(grid[0])):
+            if grid[l][c][1]==1:
+                a+=1
+            if grid[l][c][1]==0 and a!=0:
+                num2[l].append(a)
+                a=0
+        if a!=0:
+            num2[l].append(a)
+            a=0
+    
+    
+    return num1,num2
 
 grid=create_grid(width,heigh)
-print("grid\n",grid)
-numbers=numbers(grid)
+print_grid(grid)
+n1=numbers(grid)[0]
+n2=numbers(grid)[1]
 
-print("numbers",numbers)
+print("num1",n1,"\nnum2",n2)
